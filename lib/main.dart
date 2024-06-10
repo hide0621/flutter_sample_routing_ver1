@@ -1,49 +1,51 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const FirstScreen());
+  runApp(const MaterialApp(
+    home: FirstScreen(),
+  ));
 }
 
+// アプリ起動時に表示されるFirstScreenウィジェット
 class FirstScreen extends StatelessWidget {
   const FirstScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-        child: const Text('次へ'),
-        onPressed: () {
-          // final navigatorState = Navigator.of(context);
-          // final route = MaterialPageRoute(
-          //   builder: (context) => const SecondScreen(),
-          // );
-          // navigatorState.push(route);
-
-          /// 上記を簡略化した一般的な記述の方法
-          // Navigator.of(context).push(MaterialPageRoute(
-          //   builder: (_) => const SecondScreen(),
-          // ));
-
-          /// 上記をさらに簡略化した記述の方法
-          Navigator.push(
-            context,
-            MaterialPageRoute(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('FirstScreen'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          child: const Text('次へ'),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute<void>(
               builder: (_) => const SecondScreen(),
-            ),
-          );
-        });
+            ));
+          },
+        ),
+      ),
+    );
   }
 }
 
+// 画面遷移先として用意したSecondScreenウィジェット
 class SecondScreen extends StatelessWidget {
   const SecondScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      child: const Text('戻る'),
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-    );
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('SecondScreen'),
+        ),
+        body: Center(
+            child: ElevatedButton(
+          child: const Text('戻る'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        )));
   }
 }
