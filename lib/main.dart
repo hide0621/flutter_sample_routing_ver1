@@ -12,6 +12,7 @@ class FirstScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Scaffoldはマテリアルデザインの基本的なレイアウト構造を提供するウィジェット
     return Scaffold(
       // AppBarは画面上部のヘッダー部分となるウィジェット
       appBar: AppBar(
