@@ -13,10 +13,13 @@ class FirstScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // AppBarは画面上部のヘッダー部分となるウィジェット
       appBar: AppBar(
         title: const Text('FirstScreen'),
       ),
       body: Center(
+        // ElevatedButtonはマテリアルデザインのボタンウィジェット
+        // MaterialPageRouteは実行するプラットフォームに適した画面遷移アニメーションを提供するRoute
         child: ElevatedButton(
           child: const Text('次へ'),
           onPressed: () {
