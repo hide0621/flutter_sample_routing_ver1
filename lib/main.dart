@@ -10,20 +10,27 @@ class FirstScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      child: const Text('次へ'),
-      onPressed: () {
-        // final navigatorState = Navigator.of(context);
-        // final route = MaterialPageRoute(
-        //   builder: (context) => const SecondScreen(),
-        // );
-        // navigatorState.push(route);
+        child: const Text('次へ'),
+        onPressed: () {
+          // final navigatorState = Navigator.of(context);
+          // final route = MaterialPageRoute(
+          //   builder: (context) => const SecondScreen(),
+          // );
+          // navigatorState.push(route);
 
-        /// 上記を簡略化した一般的な記述の方法
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (_) => const SecondScreen(),
-        ));
-      },
-    );
+          /// 上記を簡略化した一般的な記述の方法
+          // Navigator.of(context).push(MaterialPageRoute(
+          //   builder: (_) => const SecondScreen(),
+          // ));
+
+          /// 上記をさらに簡略化した記述の方法
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => const SecondScreen(),
+            ),
+          );
+        });
   }
 }
 
