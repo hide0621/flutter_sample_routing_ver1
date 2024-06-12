@@ -7,27 +7,45 @@ void main() {
 }
 
 // アプリ起動時に表示されるFirstScreenウィジェット
-class FirstScreen extends StatelessWidget {
+class FirstScreen extends StatefulWidget {
   const FirstScreen({super.key});
 
   @override
+  State<StatefulWidget> createState() => _FirstScreenState();
+}
+
+class _FirstScreenState extends State<FirstScreen> {
+  int _number = 0;
+
+  @override
   Widget build(BuildContext context) {
-    // Scaffoldはマテリアルデザインの基本的なレイアウト構造を提供するウィジェット
     return Scaffold(
-      // AppBarは画面上部のヘッダー部分となるウィジェット
       appBar: AppBar(
         title: const Text('FirstScreen'),
       ),
       body: Center(
-        // ElevatedButtonはマテリアルデザインのボタンウィジェット
-        // MaterialPageRouteは実行するプラットフォームに適した画面遷移アニメーションを提供するRoute
-        child: ElevatedButton(
-          child: const Text('次へ'),
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute<void>(
-              builder: (_) => const SecondScreen(),
-            ));
-          },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'number = $_number',
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final newNumber = await Navigator.of(context).push<int>(
+                  MaterialPageRoute(
+                    builder: (_) => SecondScreen(number: _number),
+                  ),
+                );
+                setState(() {
+                  if (newNumber != null) {
+                    _number = newNumber;
+                  }
+                });
+              },
+              child: const Text('Secondへ'),
+            ),
+          ],
         ),
       ),
     );
@@ -36,20 +54,31 @@ class FirstScreen extends StatelessWidget {
 
 // 画面遷移先として用意したSecondScreenウィジェット
 class SecondScreen extends StatelessWidget {
-  const SecondScreen({super.key});
+  const SecondScreen({super.key, required this.number});
+
+  final int number;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('SecondScreen'),
+          title: const Text('IncrementScreen'),
         ),
         body: Center(
-            child: ElevatedButton(
-          child: const Text('戻る'),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        )));
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          ElevatedButton(
+            child: const Text('Increment'),
+            onPressed: () {
+              Navigator.of(context).pop(number + 1);
+            },
+          ),
+          ElevatedButton(
+            child: const Text('Decrement'),
+            onPressed: () {
+              Navigator.of(context).pop(number - 1);
+            },
+          ),
+        ])));
   }
 }
